@@ -10,7 +10,11 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 COMPONENTS Core Quick Widgets QuickControls2 LinguistTools REQUIRED)
-find_package(KF6WindowSystem REQUIRED)
+find_package(KF6WindowSystem QUIET)
+if(NOT KF6WindowSystem_FOUND)
+    message(STATUS "KF6WindowSystem not found, skipping lingmo-systemmonitor")
+    return()
+endif()
 
 set(PROJECT_SOURCES
     src/main.cpp
